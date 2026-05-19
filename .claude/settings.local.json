@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Bash(rustc --version)",
+      "Bash(cargo --version)",
+      "PowerShell(rustc *)",
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(npm uninstall *)",
+      "Bash(npx tsc *)",
+      "Bash(timeout 45 npm start)",
+      "Bash(tee /tmp/start.log)",
+      "Bash(timeout 35 npm start)"
+    ]
+  }
+}
