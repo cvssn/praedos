@@ -13,10 +13,9 @@
     "isolatedModules": true,
     "noEmit": true,
     "sourceMap": true,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/renderer/*"],
-      "@shared/*": ["src/shared/*"]
+      "@/*": ["./src/renderer/*"],
+      "@shared/*": ["./src/shared/*"]
     },
     "types": ["vite/client", "node"]
   },
