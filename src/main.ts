@@ -19,10 +19,18 @@ const watcher = new LogWatcher();
 declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 declare const MAIN_WINDOW_VITE_NAME: string;
 
+function assetPath(...p: string[]): string {
+  return app.isPackaged
+    ? path.join(process.resourcesPath, 'assets', ...p)
+    : path.join(app.getAppPath(), 'assets', ...p);
+}
+
 function createWindow(): BrowserWindow {
   nativeTheme.themeSource = 'dark';
 
   const win = new BrowserWindow({
+    title: 'praedos',
+    icon: assetPath('icon.png'),
     width: 1320,
     height: 840,
     minWidth: 960,
@@ -40,6 +48,9 @@ function createWindow(): BrowserWindow {
       spellcheck: false,
     },
   });
+
+  win.setTitle('praedos');
+  win.on('page-title-updated', (e) => e.preventDefault());
 
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     win.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
@@ -64,19 +75,19 @@ function createWindow(): BrowserWindow {
 }
 
 function setupTray() {
-  const icon = nativeImage.createEmpty();
-  tray = new Tray(icon);
-  tray.setToolTip('Praedos · Warframe Helper');
+  const icon = nativeImage.createFromPath(assetPath('tray.png'));
+  tray = new Tray(icon.isEmpty() ? nativeImage.createEmpty() : icon);
+  tray.setToolTip('praedos · warframe helper');
   const menu = Menu.buildFromTemplate([
     {
-      label: 'Show Praedos',
+      label: 'show praedos',
       click: () => {
         mainWindow?.show();
         mainWindow?.focus();
       },
     },
     { type: 'separator' },
-    { label: 'Quit', role: 'quit' },
+    { label: 'quit', role: 'quit' },
   ]);
   tray.setContextMenu(menu);
   tray.on('click', () => {

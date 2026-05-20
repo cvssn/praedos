@@ -10,6 +10,10 @@ import { FuseV1Options, FuseVersion } from '@electron/fuses';
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
+    name: 'praedos',
+    executableName: 'praedos',
+    icon: 'assets/icon',
+    extraResource: ['./assets'],
   },
   rebuildConfig: {},
   makers: [

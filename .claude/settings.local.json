@@ -11,7 +11,11 @@
       "Bash(npx tsc *)",
       "Bash(timeout 45 npm start)",
       "Bash(tee /tmp/start.log)",
-      "Bash(timeout 35 npm start)"
+      "Bash(timeout 35 npm start)",
+      "mcp__plugin_context-mode_context-mode__ctx_execute_file",
+      "PowerShell(powershell -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\lucas\\\\documents\\\\claudecode\\\\praedos\\\\assets\\\\generate-icons.ps1\")",
+      "mcp__plugin_context-mode_context-mode__ctx_execute",
+      "Bash(npm start *)"
     ]
   }
 }
