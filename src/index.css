@@ -24,9 +24,9 @@
   --color-tier-requiem: #b14eff;
   --color-tier-omnia: #ff8a4d;
 
-  --font-display: 'Rajdhani', 'Segoe UI', sans-serif;
-  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'JetBrainsMono Nerd Font', 'JetBrainsMonoNL Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: 'JetBrainsMono Nerd Font', 'JetBrainsMonoNL Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
+  --font-mono: 'JetBrainsMono Nerd Font', 'JetBrainsMonoNL Nerd Font', 'JetBrains Mono', ui-monospace, monospace;
 
   --shadow-glow: 0 0 0 1px rgb(0 224 255 / 0.15), 0 0 24px rgb(0 224 255 / 0.18);
 }
@@ -43,8 +43,13 @@
     color: var(--color-fg);
     -webkit-font-smoothing: antialiased;
     user-select: none;
+    font-feature-settings: 'liga' 1, 'calt' 1;
   }
   input, textarea { user-select: text; }
+  html, body, *, *::before, *::after, ::placeholder {
+    text-transform: lowercase !important;
+    font-family: var(--font-sans) !important;
+  }
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
