@@ -22,6 +22,7 @@ const DEFAULTS: Schema = {
     notifyOnFissure: true,
     notifyOnArbitration: true,
     startMinimized: false,
+    closeToTray: true,
   },
   notes: [],
   builds: [],

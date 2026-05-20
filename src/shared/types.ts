@@ -138,6 +138,7 @@ export interface AppSettings {
   notifyOnFissure: boolean;
   notifyOnArbitration: boolean;
   startMinimized: boolean;
+  closeToTray: boolean;
 }
 
 export interface NoteItem {

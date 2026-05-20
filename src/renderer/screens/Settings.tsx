@@ -89,6 +89,11 @@ export function SettingsScreen() {
           onChange={(v) => update({ startMinimized: v })}
         />
         <Toggle
+          label="Close to tray (X hides instead of quitting)"
+          checked={settings.closeToTray}
+          onChange={(v) => update({ closeToTray: v })}
+        />
+        <Toggle
           label="Notify on rare fissure"
           checked={settings.notifyOnFissure}
           onChange={(v) => update({ notifyOnFissure: v })}

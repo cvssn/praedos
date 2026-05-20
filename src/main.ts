@@ -14,6 +14,7 @@ if (!gotLock) {
 
 let mainWindow: BrowserWindow | null = null;
 let tray: Tray | null = null;
+let isQuitting = false;
 const watcher = new LogWatcher();
 
 declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
@@ -64,6 +65,15 @@ function createWindow(): BrowserWindow {
     win.show();
   });
 
+  win.on('close', (e) => {
+    if (isQuitting) return;
+    const settings = getSettings();
+    if (settings.closeToTray) {
+      e.preventDefault();
+      win.hide();
+    }
+  });
+
   win.webContents.setWindowOpenHandler(({ url }) => {
     if (/^https?:\/\//.test(url)) {
       import('electron').then(({ shell }) => shell.openExternal(url));
@@ -87,7 +97,13 @@ function setupTray() {
       },
     },
     { type: 'separator' },
-    { label: 'quit', role: 'quit' },
+    {
+      label: 'quit',
+      click: () => {
+        isQuitting = true;
+        app.quit();
+      },
+    },
   ]);
   tray.setContextMenu(menu);
   tray.on('click', () => {
@@ -119,6 +135,10 @@ app.whenReady().then(() => {
       attachLogWatcher(mainWindow, watcher);
     }
   });
+});
+
+app.on('before-quit', () => {
+  isQuitting = true;
 });
 
 app.on('window-all-closed', () => {
