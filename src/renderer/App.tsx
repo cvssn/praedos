@@ -4,6 +4,7 @@ import { TitleBar } from './components/TitleBar';
 import { Sidebar } from './components/Sidebar';
 import { DashboardScreen } from './screens/Dashboard';
 import { FissuresScreen } from './screens/Fissures';
+import { StarChartScreen } from './screens/StarChart';
 import { MarketScreen } from './screens/Market';
 import { LogFeedScreen } from './screens/LogFeed';
 import { NotesScreen } from './screens/Notes';
@@ -14,6 +15,7 @@ import { useUI } from './store/ui';
 const SCREEN_TITLES: Record<string, string> = {
   dashboard: 'World State',
   fissures: 'Void Fissures',
+  starchart: 'Star Chart',
   market: 'Warframe.Market',
   logfeed: 'Live Log Feed',
   notes: 'Notes & Goals',
@@ -44,6 +46,7 @@ export default function App() {
           <div className="flex-1 min-h-0 overflow-auto p-6">
             {screen === 'dashboard' && <DashboardScreen />}
             {screen === 'fissures' && <FissuresScreen />}
+            {screen === 'starchart' && <StarChartScreen />}
             {screen === 'market' && <MarketScreen />}
             {screen === 'logfeed' && <LogFeedScreen />}
             {screen === 'notes' && <NotesScreen />}

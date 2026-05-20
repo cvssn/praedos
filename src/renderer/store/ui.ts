@@ -1,6 +1,14 @@
 import { create } from 'zustand';
 
-export type Screen = 'dashboard' | 'fissures' | 'market' | 'logfeed' | 'notes' | 'builds' | 'settings';
+export type Screen =
+  | 'dashboard'
+  | 'fissures'
+  | 'starchart'
+  | 'market'
+  | 'logfeed'
+  | 'notes'
+  | 'builds'
+  | 'settings';
 
 interface UIState {
   screen: Screen;

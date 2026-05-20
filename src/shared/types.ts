@@ -23,6 +23,7 @@ export interface Fissure {
   isHard: boolean;
   expired: boolean;
   eta: string;
+  enemyLevels?: number[];
 }
 
 export interface Sortie {
@@ -173,6 +174,16 @@ export interface BuildItem {
 export type BuildInput = Omit<BuildItem, 'id' | 'createdAt' | 'updatedAt'>;
 export type BuildPatch = Partial<BuildInput>;
 
+export interface StarChartNode {
+  key: string;
+  name: string;
+  planet: string;
+  missionType: string;
+  faction: string;
+  enemyLevels: [number, number];
+  suggestedDamage: string[];
+}
+
 export interface PraedosApi {
   worldstate: {
     get(): Promise<Worldstate>;
@@ -198,6 +209,9 @@ export interface PraedosApi {
     remove(id: string): Promise<BuildItem[]>;
     pickImage(): Promise<string | null>;
     readImage(path: string): Promise<string | null>;
+  };
+  starChart: {
+    list(): Promise<StarChartNode[]>;
   };
   log: {
     onEvent(cb: (event: LogEvent) => void): () => void;

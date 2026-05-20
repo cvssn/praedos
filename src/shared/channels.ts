@@ -24,6 +24,9 @@ export const IPC = {
     pickImage: 'builds:pick-image',
     readImage: 'builds:read-image',
   },
+  starChart: {
+    list: 'starchart:list',
+  },
   log: {
     setPath: 'log:set-path',
     pickFile: 'log:pick-file',

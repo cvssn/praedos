@@ -18,6 +18,7 @@ import {
   updateBuild,
 } from './store';
 import type { BuildInput, BuildPatch } from '@shared/types';
+import { listStarChart } from './starChart';
 import { LogWatcher } from './logWatcher';
 
 export function registerIpc(getWindow: () => BrowserWindow | null, watcher: LogWatcher) {
@@ -63,6 +64,8 @@ export function registerIpc(getWindow: () => BrowserWindow | null, watcher: LogW
     fs.copyFileSync(src, dest);
     return dest;
   });
+  ipcMain.handle(IPC.starChart.list, async () => listStarChart());
+
   ipcMain.handle(IPC.builds.readImage, async (_e, p: string) => {
     try {
       const dir = buildsImagesDir();

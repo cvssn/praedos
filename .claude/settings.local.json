@@ -15,7 +15,9 @@
       "mcp__plugin_context-mode_context-mode__ctx_execute_file",
       "PowerShell(powershell -ExecutionPolicy Bypass -File \"C:\\\\Users\\\\lucas\\\\documents\\\\claudecode\\\\praedos\\\\assets\\\\generate-icons.ps1\")",
       "mcp__plugin_context-mode_context-mode__ctx_execute",
-      "Bash(npm start *)"
+      "Bash(npm start *)",
+      "PowerShell($r = Invoke-RestMethod -Uri \"https://api.warframestat.us/solNodes?language=en\" -Headers @{Accept=\"application/json\"}; \\($r.PSObject.Properties | Select-Object -First 3 | ForEach-Object { @{ key = $_.Name; val = $_.Value } }\\) | ConvertTo-Json -Depth 4)",
+      "PowerShell(try { $r = Invoke-RestMethod -Uri \"https://api.warframestat.us/pc/missions?language=en\" -Headers @{Accept=\"application/json\"} -TimeoutSec 10; $r | ConvertTo-Json -Depth 3 | Select-Object -First 30 } catch { Write-Output \"missions endpoint: $\\($_.Exception.Message\\)\" })"
     ]
   }
 }

@@ -42,29 +42,49 @@ export function FissuresScreen() {
         <Empty title="No fissures match" hint="Adjust filters or wait a moment." icon={<Orbit size={28} />} />
       ) : (
         <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2">
-          {fissures.map((f) => (
-            <li
-              key={f.id}
-              className={cn(
-                'surface-2 px-4 py-3 flex flex-col gap-1 hover:border-border-bright transition-colors',
-                tierBorderClass(f.tier),
-              )}
-            >
-              <div className="flex justify-between items-center">
-                <span className={cn('stat-num text-sm font-semibold', tierClass(f.tier))}>{f.tier}</span>
-                <span className="font-mono text-xs text-fg-dim">{msToCountdown(expiryToMs(f.expiry))}</span>
-              </div>
-              <div className="text-sm text-fg">{f.missionType}</div>
-              <div className="text-xs text-fg-mute flex justify-between">
-                <span>{f.node}</span>
-                <span className="uppercase tracking-wider">{f.enemy}</span>
-              </div>
-              <div className="flex gap-2 mt-1">
-                {f.isHard && <span className="chip text-warn"><Star size={10} /> Steel Path</span>}
-                {f.isStorm && <span className="chip text-accent"><Zap size={10} /> Storm</span>}
-              </div>
-            </li>
-          ))}
+          {fissures.map((f) => {
+            const levels =
+              Array.isArray(f.enemyLevels) && f.enemyLevels.length >= 2
+                ? `(${f.enemyLevels[0]}-${f.enemyLevels[1]})`
+                : null;
+            return (
+              <li
+                key={f.id}
+                className={cn(
+                  'surface-2 px-4 py-3 flex flex-col gap-1 hover:border-border-bright transition-colors',
+                  tierBorderClass(f.tier),
+                )}
+              >
+                <div className="text-sm text-fg">
+                  <span className="font-medium">{f.missionType}</span>
+                  {levels && <span className="text-fg-mute"> {levels}</span>}
+                  <span className="text-fg-dim"> — </span>
+                  <span className="text-fg-mute">{f.enemy}</span>
+                </div>
+                <div className={cn('stat-num text-sm font-semibold', tierClass(f.tier))}>
+                  {f.tier} fissure
+                </div>
+                <div className="text-xs text-fg-mute">{f.node}</div>
+                <div className="font-mono text-xs text-fg-dim">
+                  {msToCountdown(expiryToMs(f.expiry))}
+                </div>
+                {(f.isHard || f.isStorm) && (
+                  <div className="flex gap-2 mt-1">
+                    {f.isHard && (
+                      <span className="chip text-warn">
+                        <Star size={10} /> Steel Path
+                      </span>
+                    )}
+                    {f.isStorm && (
+                      <span className="chip text-accent">
+                        <Zap size={10} /> Storm
+                      </span>
+                    )}
+                  </div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       )}
     </div>

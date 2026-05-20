@@ -1,10 +1,11 @@
-import { LayoutDashboard, Orbit, Coins, ScrollText, ListChecks, Wrench, Settings, ExternalLink } from 'lucide-react';
+import { LayoutDashboard, Orbit, Globe, Coins, ScrollText, ListChecks, Wrench, Settings, ExternalLink } from 'lucide-react';
 import { useUI, type Screen } from '@/store/ui';
 import { cn } from '@/lib/utils';
 
 const nav: { id: Screen; label: string; icon: React.ComponentType<{ size?: number }> }[] = [
   { id: 'dashboard', label: 'World State', icon: LayoutDashboard },
   { id: 'fissures', label: 'Void Fissures', icon: Orbit },
+  { id: 'starchart', label: 'Star Chart', icon: Globe },
   { id: 'market', label: 'Market', icon: Coins },
   { id: 'logfeed', label: 'Log Feed', icon: ScrollText },
   { id: 'notes', label: 'Notes', icon: ListChecks },

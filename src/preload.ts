@@ -28,6 +28,9 @@ const api: PraedosApi = {
     pickImage: () => ipcRenderer.invoke(IPC.builds.pickImage),
     readImage: (p) => ipcRenderer.invoke(IPC.builds.readImage, p),
   },
+  starChart: {
+    list: () => ipcRenderer.invoke(IPC.starChart.list),
+  },
   log: {
     onEvent: (cb) => {
       const listener = (_e: Electron.IpcRendererEvent, event: LogEvent) => cb(event);
