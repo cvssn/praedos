@@ -13,7 +13,7 @@ import { useUI } from './store/ui';
 
 const SCREEN_TITLES: Record<string, string> = {
   dashboard: 'World State',
-  fissures: 'Active Fissures',
+  fissures: 'Void Fissures',
   market: 'Warframe.Market',
   logfeed: 'Live Log Feed',
   notes: 'Notes & Goals',

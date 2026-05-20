@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 const nav: { id: Screen; label: string; icon: React.ComponentType<{ size?: number }> }[] = [
   { id: 'dashboard', label: 'World State', icon: LayoutDashboard },
-  { id: 'fissures', label: 'Fissures', icon: Orbit },
+  { id: 'fissures', label: 'Void Fissures', icon: Orbit },
   { id: 'market', label: 'Market', icon: Coins },
   { id: 'logfeed', label: 'Log Feed', icon: ScrollText },
   { id: 'notes', label: 'Notes', icon: ListChecks },
