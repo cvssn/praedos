@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { FolderSearch, RefreshCw } from 'lucide-react';
+import { FolderSearch, RefreshCw, Palette, Check } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { applyTheme } from '@/lib/theme';
+import { THEMES } from '@shared/themes';
 import type { AppSettings, Platform } from '@shared/types';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -22,6 +24,7 @@ export function SettingsScreen() {
   async function update(patch: Partial<AppSettings>) {
     const next = await window.praedos.settings.set(patch);
     setSettings(next);
+    if (patch.theme) applyTheme(patch.theme);
     qc.invalidateQueries({ queryKey: ['worldstate'] });
   }
 
@@ -45,6 +48,53 @@ export function SettingsScreen() {
               {p.label}
             </button>
           ))}
+        </div>
+      </Section>
+
+      <Section title="Theme">
+        <div className="flex items-center gap-2 mb-2 text-xs text-fg-mute">
+          <Palette size={13} />
+          <span>Warframe-inspired color schemes</span>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {THEMES.map((t) => {
+            const active = settings.theme === t.id;
+            return (
+              <button
+                key={t.id}
+                onClick={() => update({ theme: t.id })}
+                className={cn(
+                  'group relative rounded-lg border p-2 text-left transition-all overflow-hidden',
+                  active
+                    ? 'border-accent/60 shadow-[0_0_0_1px_var(--color-accent)]'
+                    : 'border-border hover:border-border-bright',
+                )}
+                style={{ background: t.colors.bg1 }}
+              >
+                <div className="flex items-center gap-1.5 mb-1.5">
+                  <span
+                    className="w-3 h-3 rounded-full border border-black/40"
+                    style={{ background: t.colors.accent }}
+                  />
+                  <span
+                    className="w-3 h-3 rounded-full border border-black/40"
+                    style={{ background: t.colors.accent2 }}
+                  />
+                  <span
+                    className="w-3 h-3 rounded-full border border-black/40"
+                    style={{ background: t.colors.bg3 }}
+                  />
+                  {active && <Check size={12} className="ml-auto" style={{ color: t.colors.accent }} />}
+                </div>
+                <div className="text-sm font-medium" style={{ color: t.colors.fg }}>
+                  {t.name}
+                </div>
+                <div className="text-[10px] mt-0.5" style={{ color: t.colors.fgMute }}>
+                  {t.description}
+                </div>
+              </button>
+            );
+          })}
         </div>
       </Section>
 

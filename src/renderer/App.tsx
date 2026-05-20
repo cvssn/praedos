@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { applyTheme } from './lib/theme';
 import { TitleBar } from './components/TitleBar';
 import { Sidebar } from './components/Sidebar';
 import { DashboardScreen } from './screens/Dashboard';
@@ -26,6 +27,10 @@ export default function App() {
   useEffect(() => {
     document.title = `Praedos · ${SCREEN_TITLES[screen]}`;
   }, [screen]);
+
+  useEffect(() => {
+    window.praedos.settings.get().then((s) => applyTheme(s.theme));
+  }, []);
 
   return (
     <div className="h-screen flex flex-col">

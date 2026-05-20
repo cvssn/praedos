@@ -139,6 +139,7 @@ export interface AppSettings {
   notifyOnArbitration: boolean;
   startMinimized: boolean;
   closeToTray: boolean;
+  theme: string;
 }
 
 export interface NoteItem {

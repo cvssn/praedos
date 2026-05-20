@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { app } from 'electron';
 import type { AppSettings, BuildInput, BuildItem, BuildPatch, NoteItem } from '@shared/types';
+import { DEFAULT_THEME_ID } from '@shared/themes';
 
 type Schema = {
   settings: AppSettings;
@@ -23,6 +24,7 @@ const DEFAULTS: Schema = {
     notifyOnArbitration: true,
     startMinimized: false,
     closeToTray: true,
+    theme: DEFAULT_THEME_ID,
   },
   notes: [],
   builds: [],
