@@ -20,6 +20,14 @@ const api: PraedosApi = {
     toggle: (id) => ipcRenderer.invoke(IPC.notes.toggle, id),
     remove: (id) => ipcRenderer.invoke(IPC.notes.remove, id),
   },
+  builds: {
+    list: () => ipcRenderer.invoke(IPC.builds.list),
+    add: (input) => ipcRenderer.invoke(IPC.builds.add, input),
+    update: (id, patch) => ipcRenderer.invoke(IPC.builds.update, id, patch),
+    remove: (id) => ipcRenderer.invoke(IPC.builds.remove, id),
+    pickImage: () => ipcRenderer.invoke(IPC.builds.pickImage),
+    readImage: (p) => ipcRenderer.invoke(IPC.builds.readImage, p),
+  },
   log: {
     onEvent: (cb) => {
       const listener = (_e: Electron.IpcRendererEvent, event: LogEvent) => cb(event);

@@ -16,6 +16,14 @@ export const IPC = {
     toggle: 'notes:toggle',
     remove: 'notes:remove',
   },
+  builds: {
+    list: 'builds:list',
+    add: 'builds:add',
+    update: 'builds:update',
+    remove: 'builds:remove',
+    pickImage: 'builds:pick-image',
+    readImage: 'builds:read-image',
+  },
   log: {
     setPath: 'log:set-path',
     pickFile: 'log:pick-file',

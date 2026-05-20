@@ -147,6 +147,30 @@ export interface NoteItem {
   createdAt: number;
 }
 
+export type BuildCategory =
+  | 'warframe'
+  | 'primary'
+  | 'secondary'
+  | 'melee'
+  | 'archwing'
+  | 'companion'
+  | 'other';
+
+export interface BuildItem {
+  id: string;
+  name: string;
+  category: BuildCategory;
+  loadout: string;
+  mods: string;
+  notes: string;
+  imagePath?: string;
+  createdAt: number;
+  updatedAt: number;
+}
+
+export type BuildInput = Omit<BuildItem, 'id' | 'createdAt' | 'updatedAt'>;
+export type BuildPatch = Partial<BuildInput>;
+
 export interface PraedosApi {
   worldstate: {
     get(): Promise<Worldstate>;
@@ -164,6 +188,14 @@ export interface PraedosApi {
     add(text: string): Promise<NoteItem[]>;
     toggle(id: string): Promise<NoteItem[]>;
     remove(id: string): Promise<NoteItem[]>;
+  };
+  builds: {
+    list(): Promise<BuildItem[]>;
+    add(input: BuildInput): Promise<BuildItem[]>;
+    update(id: string, patch: BuildPatch): Promise<BuildItem[]>;
+    remove(id: string): Promise<BuildItem[]>;
+    pickImage(): Promise<string | null>;
+    readImage(path: string): Promise<string | null>;
   };
   log: {
     onEvent(cb: (event: LogEvent) => void): () => void;

@@ -1,11 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { app } from 'electron';
-import type { AppSettings, NoteItem } from '@shared/types';
+import type { AppSettings, BuildInput, BuildItem, BuildPatch, NoteItem } from '@shared/types';
 
 type Schema = {
   settings: AppSettings;
   notes: NoteItem[];
+  builds: BuildItem[];
 };
 
 function defaultEeLog(): string {
@@ -23,6 +24,7 @@ const DEFAULTS: Schema = {
     startMinimized: false,
   },
   notes: [],
+  builds: [],
 };
 
 let state: Schema | null = null;
@@ -37,6 +39,7 @@ function load(): Schema {
     state = {
       settings: { ...DEFAULTS.settings, ...(parsed.settings ?? {}) },
       notes: Array.isArray(parsed.notes) ? parsed.notes : [],
+      builds: Array.isArray(parsed.builds) ? parsed.builds : [],
     };
   } catch {
     state = structuredClone(DEFAULTS);
@@ -95,6 +98,59 @@ export function removeNote(id: string): NoteItem[] {
   s.notes = s.notes.filter((n) => n.id !== id);
   persist();
   return s.notes;
+}
+
+export function buildsImagesDir(): string {
+  const dir = path.join(app.getPath('userData'), 'builds-images');
+  fs.mkdirSync(dir, { recursive: true });
+  return dir;
+}
+
+export function listBuilds(): BuildItem[] {
+  return load().builds;
+}
+
+export function addBuild(input: BuildInput): BuildItem[] {
+  const s = load();
+  const now = Date.now();
+  const build: BuildItem = {
+    id: randomId(),
+    name: input.name.trim(),
+    category: input.category,
+    loadout: input.loadout.trim(),
+    mods: input.mods,
+    notes: input.notes,
+    imagePath: input.imagePath,
+    createdAt: now,
+    updatedAt: now,
+  };
+  s.builds = [build, ...s.builds];
+  persist();
+  return s.builds;
+}
+
+export function updateBuild(id: string, patch: BuildPatch): BuildItem[] {
+  const s = load();
+  s.builds = s.builds.map((b) =>
+    b.id === id ? { ...b, ...patch, updatedAt: Date.now() } : b,
+  );
+  persist();
+  return s.builds;
+}
+
+export function removeBuild(id: string): BuildItem[] {
+  const s = load();
+  const target = s.builds.find((b) => b.id === id);
+  if (target?.imagePath) {
+    try {
+      fs.unlinkSync(target.imagePath);
+    } catch {
+      // image already gone — ignore
+    }
+  }
+  s.builds = s.builds.filter((b) => b.id !== id);
+  persist();
+  return s.builds;
 }
 
 function randomId(): string {

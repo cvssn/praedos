@@ -6,6 +6,7 @@ import { FissuresScreen } from './screens/Fissures';
 import { MarketScreen } from './screens/Market';
 import { LogFeedScreen } from './screens/LogFeed';
 import { NotesScreen } from './screens/Notes';
+import { BuildsScreen } from './screens/Builds';
 import { SettingsScreen } from './screens/Settings';
 import { useUI } from './store/ui';
 
@@ -15,6 +16,7 @@ const SCREEN_TITLES: Record<string, string> = {
   market: 'Warframe.Market',
   logfeed: 'Live Log Feed',
   notes: 'Notes & Goals',
+  builds: 'Personal Builds',
   settings: 'Settings',
 };
 
@@ -40,6 +42,7 @@ export default function App() {
             {screen === 'market' && <MarketScreen />}
             {screen === 'logfeed' && <LogFeedScreen />}
             {screen === 'notes' && <NotesScreen />}
+            {screen === 'builds' && <BuildsScreen />}
             {screen === 'settings' && <SettingsScreen />}
           </div>
         </main>

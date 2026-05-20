@@ -89,6 +89,23 @@
     text-transform: uppercase;
     color: var(--color-fg-mute);
   }
+  .input {
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--color-border-bright);
+    background: var(--color-bg-1);
+    color: var(--color-fg);
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .input:focus {
+    border-color: rgb(0 224 255 / 0.5);
+    box-shadow: 0 0 0 2px rgb(0 224 255 / 0.12);
+  }
+  .input::placeholder { color: var(--color-fg-dim); }
+  textarea.input { resize: vertical; min-height: 60px; }
   .stat-num {
     font-family: var(--font-display);
     font-variant-numeric: tabular-nums;
